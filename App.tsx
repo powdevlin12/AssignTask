@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {fontFamilies} from './src/constants/fontFamilies';
 
 const App = () => {
   return (
@@ -19,8 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontWeight: '700',
-    fontSize: 32,
     color: '#fff',
+    fontFamily: fontFamilies.MontserratItalic,
   },
 });
