@@ -1,26 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {View, Text, StatusBar} from 'react-native';
 import React from 'react';
-import {fontFamilies} from './src/constants/fontFamilies';
+import {Home} from './src/screens/home';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>App test dat</Text>
-    </View>
+    <>
+      <StatusBar
+        translucent
+        barStyle={'light-content'}
+        backgroundColor={'transparent'}
+      />
+      <Home />
+    </>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'coral',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    color: '#fff',
-    fontFamily: fontFamilies.MontserratItalic,
-  },
-});
