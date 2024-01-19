@@ -7,7 +7,7 @@ export const globalStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.bg,
     padding: 20,
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: (StatusBar.currentHeight as number) + 16,
   },
 
   text: {
@@ -31,5 +31,12 @@ export const globalStyle = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: Platform.OS === 'android' ? 12 : 14,
     paddingVertical: Platform.OS === 'android' ? 12 : 14,
+  },
+
+  tag: {
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    borderRadius: 100,
+    backgroundColor: colors.blue,
   },
 });
