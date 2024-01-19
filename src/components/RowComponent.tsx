@@ -25,7 +25,6 @@ interface Props {
 
 const RowComponent = (props: Props) => {
   const {children, justifyContent, onPress, styles} = props;
-  console.log('🚀 ~ RowComponent ~ styles:', styles);
   const localStyle = [
     globalStyle.row,
     {justifyContent: justifyContent ?? 'center'},

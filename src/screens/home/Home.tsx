@@ -11,6 +11,7 @@ import CardComponent from '../../components/CardComponent';
 import {Element4, Notification, SearchNormal} from 'iconsax-react-native';
 import TagComponent from '../../components/TagComponent';
 import SpaceComponent from '../../components/SpaceComponent';
+import CicularComponent from '../../components/CicularComponent';
 
 export default function Home() {
   return (
@@ -52,7 +53,7 @@ export default function Home() {
               </RowComponent>
             </View>
             <View>
-              <TextComponent text="Circle" />
+              <CicularComponent value={30} />
             </View>
           </RowComponent>
         </CardComponent>

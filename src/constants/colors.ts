@@ -4,5 +4,5 @@ export const colors = {
   text: '#ffffff',
   textOpacity: '#696b6f',
   desc: '#e6e6e6',
-  blue: '#3618e0',
+  blue: '#0B60B0',
 };
