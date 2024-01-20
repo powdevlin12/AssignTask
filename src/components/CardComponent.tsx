@@ -17,11 +17,19 @@ const CardComponent = ({children, styles, bgColor}: Props) => {
         {padding: 12, backgroundColor: bgColor ?? colors.gray},
         styles,
       ]}>
-      {children}
+      <View style={styles.contentContainer}>{children}</View>
     </View>
   );
 };
 
 export default CardComponent;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  contentContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    left: 0,
+  },
+});

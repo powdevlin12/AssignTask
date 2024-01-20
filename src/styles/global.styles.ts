@@ -39,4 +39,9 @@ export const globalStyle = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: colors.blue,
   },
+
+  card: {
+    padding: 12,
+    borderRadius: 12,
+  },
 });

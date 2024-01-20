@@ -12,6 +12,7 @@ import {Element4, Notification, SearchNormal} from 'iconsax-react-native';
 import TagComponent from '../../components/TagComponent';
 import SpaceComponent from '../../components/SpaceComponent';
 import CicularComponent from '../../components/CicularComponent';
+import CardImageComponent from '../../components/CardImageComponent';
 
 export default function Home() {
   return (
@@ -57,6 +58,21 @@ export default function Home() {
             </View>
           </RowComponent>
         </CardComponent>
+      </SectionComponent>
+      <SectionComponent>
+        <RowComponent>
+          <View style={{flex: 1}}>
+            <CardImageComponent>
+              <TextComponent text="Row 1" />
+            </CardImageComponent>
+          </View>
+          <SpaceComponent width={12} />
+          <View style={{flex: 1}}>
+            <CardImageComponent>
+              <TextComponent text="Row 2" />
+            </CardImageComponent>
+          </View>
+        </RowComponent>
       </SectionComponent>
     </Container>
   );
