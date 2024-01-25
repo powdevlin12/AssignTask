@@ -1,6 +1,11 @@
-import {Element4, Notification, SearchNormal} from 'iconsax-react-native';
+import {
+  Edit2,
+  Element4,
+  Notification,
+  SearchNormal,
+} from 'iconsax-react-native';
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {globalStyle} from '../../styles/global.styles';
 import theme from '../../constants/theme';
 import {
@@ -10,9 +15,10 @@ import {
   SpaceComponent,
 } from '../../components/layout';
 import {TextComponent, TitleComponent} from '../../components/Text';
-import {CardComponent} from '../../components/card';
+import {CardComponent, CardImageComponent} from '../../components/card';
 import {TagComponent} from '../../components/tag';
 import {CicularComponent} from '../../components/cicular';
+import {AvatarGroupComponent} from './components/avatar-group';
 
 export default function Home() {
   return (
@@ -60,10 +66,53 @@ export default function Home() {
         </CardComponent>
       </SectionComponent>
       <SectionComponent>
-        <View style={{flex: 1}} />
-        <SpaceComponent width={theme.size[4]} />
-        <View style={{flex: 1}} />
+        <RowComponent>
+          <View style={{flex: 1}}>
+            <CardImageComponent>
+              <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
+                <Edit2 size="20" color={theme.colors.white} />
+              </TouchableOpacity>
+              <TitleComponent text="UX Design" />
+              <TextComponent text="Task mamagement mobile app" />
+              <AvatarGroupComponent />
+              <TitleComponent
+                text="Due, 12 Jun 2024"
+                color={theme.colors.desc}
+                size={theme.fontSize.note}
+              />
+            </CardImageComponent>
+          </View>
+          <SpaceComponent width={theme.size[4]} />
+          <View style={{flex: 1}}>
+            <CardImageComponent color="rgba(33,150,243,0.9)">
+              <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
+                <Edit2 size="20" color={theme.colors.white} />
+              </TouchableOpacity>
+              <TitleComponent text="API payment" />
+            </CardImageComponent>
+            <SpaceComponent height={16} />
+            <CardImageComponent color="rgba(18,181, 22,0.9)">
+              <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
+                <Edit2 size="20" color={theme.colors.white} />
+              </TouchableOpacity>
+              <TitleComponent text="Update work" />
+              <TextComponent text="Revision home page" />
+            </CardImageComponent>
+          </View>
+        </RowComponent>
       </SectionComponent>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  iconCard: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255, 0.2)',
+    padding: theme.size[2],
+    borderRadius: theme.border.large,
+  },
+});

@@ -20,7 +20,7 @@ const TextComponent = ({text, font, size, color, flex}: Props) => {
           globalStyle.text,
           {
             fontFamily: font ?? theme.fontFamilies.MontserratRegular,
-            fontSize: size ?? 14,
+            fontSize: size ?? theme.fontSize.paragraph,
             color: color ?? theme.colors.text,
             flex: flex ?? 1,
           },

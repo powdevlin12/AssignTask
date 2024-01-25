@@ -39,4 +39,9 @@ export const globalStyle = StyleSheet.create({
     borderRadius: border.large,
     backgroundColor: theme.colors.blue,
   },
+
+  card: {
+    borderRadius: theme.border.medium,
+    flex: 1,
+  },
 });

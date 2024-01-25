@@ -5,4 +5,5 @@ export const colors = {
   textOpacity: '#696b6f',
   desc: '#e6e6e6',
   blue: '#0B60B0',
+  white: '#fafafa',
 };

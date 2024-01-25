@@ -1,3 +1,3 @@
 import CardComponent from './CardComponent';
-
-export {CardComponent};
+import CardImageComponent from './CardImageComponent';
+export {CardComponent, CardImageComponent};
