@@ -17,8 +17,8 @@ import {
 import {TextComponent, TitleComponent} from '../../components/Text';
 import {CardComponent, CardImageComponent} from '../../components/card';
 import {TagComponent} from '../../components/tag';
-import {CicularComponent} from '../../components/cicular';
 import {AvatarGroupComponent} from './components/avatar-group';
+import {CicularComponent, ProgressComponent} from '../../components/progress';
 
 export default function Home() {
   return (
@@ -75,6 +75,11 @@ export default function Home() {
               <TitleComponent text="UX Design" />
               <TextComponent text="Task mamagement mobile app" />
               <AvatarGroupComponent />
+              <ProgressComponent
+                percent={'70%'}
+                title="Doing"
+                color="#0aacff"
+              />
               <TitleComponent
                 text="Due, 12 Jun 2024"
                 color={theme.colors.desc}
@@ -89,6 +94,11 @@ export default function Home() {
                 <Edit2 size="20" color={theme.colors.white} />
               </TouchableOpacity>
               <TitleComponent text="API payment" />
+              <ProgressComponent
+                percent={'30%'}
+                title="Doing"
+                color={'rgba(18,181, 22,0.9)'}
+              />
             </CardImageComponent>
             <SpaceComponent height={16} />
             <CardImageComponent color="rgba(18,181, 22,0.9)">
