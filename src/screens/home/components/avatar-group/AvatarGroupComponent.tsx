@@ -29,8 +29,7 @@ const AvatarGroupComponent = () => {
           );
         }
       })}
-      <View
-        style={[styles.avatar, {backgroundColor: 'rgba(255,255,255, 0.7)'}]}>
+      <View style={[styles.avatar, {backgroundColor: '#8b8787d1'}]}>
         <TitleComponent
           text={`+${total - 4 > 9 ? 0 : total - 4}`}
           size={theme.fontSize.paragraph}
