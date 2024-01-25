@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleProp, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
-import {globalStyle} from '../styles/global.styles';
-import TextComponent from './TextComponent';
-import {colors} from '../constants/colors';
+import {globalStyle} from '../../styles/global.styles';
+import TextComponent from '../Text/TextComponent';
+import theme from '../../constants/theme';
 
 interface Props {
   text: string;
@@ -19,7 +19,7 @@ const TagComponent = ({text, color, onPress, tagStyle, textStyle}: Props) => {
       style={[
         tagStyle,
         globalStyle.tag,
-        {backgroundColor: color ?? colors.blue},
+        {backgroundColor: color ?? theme.colors.blue},
       ]}
       disabled={!onPress}>
       <TextComponent styles={textStyle} text={text} />

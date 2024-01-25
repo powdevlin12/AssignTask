@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet} from 'react-native';
+import theme from '../../constants/theme';
 import TextComponent from './TextComponent';
-import {fontFamilies} from '../constants/fontFamilies';
 
 interface Props {
   text: string;
@@ -14,7 +14,7 @@ const TitleComponent = ({text, color, font, size}: Props) => {
   return (
     <TextComponent
       size={size ?? 20}
-      font={font ?? fontFamilies.MontserratSemiBold}
+      font={font ?? theme.fontFamilies.MontserratSemiBold}
       color={color}
       text={text}
     />

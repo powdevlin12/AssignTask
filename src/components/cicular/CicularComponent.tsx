@@ -1,7 +1,7 @@
 import React from 'react';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import {fontFamilies} from '../constants/fontFamilies';
-import TextComponent from './TextComponent';
+import TextComponent from '../Text/TextComponent';
+import theme from '../../constants/theme';
 
 interface Props {
   color?: string;
@@ -22,7 +22,7 @@ export default function CicularComponent({value, color, maxValue}: Props) {
       childrenContainerStyle={{justifyContent: 'center'}}>
       {() => (
         <TextComponent
-          font={fontFamilies.MontserratBold}
+          font={theme.fontFamilies.MontserratBold}
           size={18}
           text={`${value.toString()}%`}
           flex={0}

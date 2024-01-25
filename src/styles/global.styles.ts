@@ -1,19 +1,19 @@
 import {Platform, StatusBar, StyleSheet} from 'react-native';
-import {colors} from '../constants/colors';
-import {fontFamilies} from '../constants/fontFamilies';
+import theme from '../constants/theme';
+import {border, fontSize, size} from '../constants/theme/size';
 
 export const globalStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bg,
-    padding: 20,
-    paddingTop: (StatusBar.currentHeight as number) + 16,
+    backgroundColor: theme.colors.bg,
+    padding: size[4],
+    paddingTop: (StatusBar.currentHeight as number) + size[4],
   },
 
   text: {
-    fontSize: 14,
-    fontFamily: fontFamilies.MontserratRegular,
-    color: colors.text,
+    fontSize: fontSize.paragraph,
+    fontFamily: theme.fontFamilies.MontserratRegular,
+    color: theme.colors.text,
   },
 
   row: {
@@ -23,20 +23,20 @@ export const globalStyle = StyleSheet.create({
   },
 
   section: {
-    marginBottom: 16,
+    marginBottom: size[4],
   },
 
   inputContainer: {
-    backgroundColor: colors.gray,
-    borderRadius: 12,
+    backgroundColor: theme.colors.gray,
+    borderRadius: border.medium,
     paddingHorizontal: Platform.OS === 'android' ? 12 : 14,
     paddingVertical: Platform.OS === 'android' ? 12 : 14,
   },
 
   tag: {
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 100,
-    backgroundColor: colors.blue,
+    paddingHorizontal: size[4],
+    paddingVertical: size[3],
+    borderRadius: border.large,
+    backgroundColor: theme.colors.blue,
   },
 });
