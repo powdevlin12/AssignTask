@@ -7,12 +7,18 @@ interface Props {
   color?: string;
   value: number;
   maxValue?: number;
+  size?: number;
 }
 
-export default function CicularComponent({value, color, maxValue}: Props) {
+export default function CicularComponent({
+  size,
+  value,
+  color,
+  maxValue,
+}: Props) {
   return (
     <AnimatedCircularProgress
-      size={100}
+      size={size ?? 100}
       width={12}
       fill={value}
       tintColor={color ?? '#00e0ff'}
@@ -22,7 +28,7 @@ export default function CicularComponent({value, color, maxValue}: Props) {
       childrenContainerStyle={{justifyContent: 'center'}}>
       {() => (
         <TextComponent
-          font={theme.fontFamilies.MontserratBold}
+          font={theme.fontFamilies.MontserratSemiBold}
           size={18}
           text={`${value.toString()}%`}
           flex={0}

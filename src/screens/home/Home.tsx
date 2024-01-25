@@ -111,6 +111,20 @@ export default function Home() {
           </View>
         </RowComponent>
       </SectionComponent>
+      <SectionComponent>
+        <TitleComponent text="Urgents tasks" />
+        <SpaceComponent height={theme.size[3]} />
+        <CardComponent>
+          <RowComponent justifyContent="flex-start">
+            <CicularComponent value={60} size={80} />
+            <SpaceComponent width={theme.size[4]} />
+            <TitleComponent
+              text="Title of task"
+              size={theme.fontSize.paragraphLarge}
+            />
+          </RowComponent>
+        </CardComponent>
+      </SectionComponent>
     </Container>
   );
 }
