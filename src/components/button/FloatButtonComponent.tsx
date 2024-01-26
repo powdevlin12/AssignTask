@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.size[4],
     width: '100%',
     borderRadius: theme.border.large,
-    backgroundColor: '#424769cf',
+    backgroundColor: '#7fc7d9d4',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
