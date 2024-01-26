@@ -19,6 +19,7 @@ import {CardComponent, CardImageComponent} from '../../components/card';
 import {TagComponent} from '../../components/tag';
 import {AvatarGroupComponent} from './components/avatar-group';
 import {CicularComponent, ProgressComponent} from '../../components/progress';
+import {ProgressTaskComponent} from './components/progress-task';
 
 export default function Home() {
   return (
@@ -68,46 +69,35 @@ export default function Home() {
       <SectionComponent>
         <RowComponent>
           <View style={{flex: 1}}>
-            <CardImageComponent>
-              <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
-                <Edit2 size="20" color={theme.colors.white} />
-              </TouchableOpacity>
-              <TitleComponent text="UX Design" />
-              <TextComponent text="Task mamagement mobile app" />
-              <AvatarGroupComponent />
-              <ProgressComponent
-                percent={'70%'}
-                title="Doing"
-                color="#0aacff"
-              />
-              <TitleComponent
-                text="Due, 12 Jun 2024"
-                color={theme.colors.desc}
-                size={theme.fontSize.note}
-              />
-            </CardImageComponent>
+            <ProgressTaskComponent
+              title="UX Design"
+              content="Task mamagement mobile app"
+              dueDate="Due, 12 Jun 2024"
+              progress={{
+                percent: '70%',
+                titleProgress: 'Doing',
+                colorProgress: '#0aacff',
+              }}
+              group={['dat']}
+            />
           </View>
           <SpaceComponent width={theme.size[4]} />
           <View style={{flex: 1}}>
-            <CardImageComponent color="rgba(33,150,243,0.9)">
-              <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
-                <Edit2 size="20" color={theme.colors.white} />
-              </TouchableOpacity>
-              <TitleComponent text="API payment" />
-              <ProgressComponent
-                percent={'30%'}
-                title="Doing"
-                color={'rgba(18,181, 22,0.9)'}
-              />
-            </CardImageComponent>
+            <ProgressTaskComponent
+              title="API payment"
+              color="rgba(33,150,243,0.9)"
+              progress={{
+                percent: '36%',
+                titleProgress: 'Done',
+                colorProgress: 'rgba(18,181, 22,0.9)',
+              }}
+            />
             <SpaceComponent height={16} />
-            <CardImageComponent color="rgba(18,181, 22,0.9)">
-              <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
-                <Edit2 size="20" color={theme.colors.white} />
-              </TouchableOpacity>
-              <TitleComponent text="Update work" />
-              <TextComponent text="Revision home page" />
-            </CardImageComponent>
+            <ProgressTaskComponent
+              title="Update work"
+              content="Revision home page"
+              color="rgba(18,181, 22,0.9)"
+            />
           </View>
         </RowComponent>
       </SectionComponent>
