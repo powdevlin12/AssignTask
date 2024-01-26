@@ -15,8 +15,12 @@ import theme from '../../constants/theme';
 import {globalStyle} from '../../styles/global.styles';
 import {ProgressTaskComponent} from './components/progress-task';
 import FloatButtonComponent from '../../components/button/FloatButtonComponent';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AppStackParamList} from '../../navigation/app.navigation';
 
-export default function Home() {
+type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
+
+export default function Home({navigation}: Props) {
   return (
     <Container>
       <SectionComponent>
@@ -110,7 +114,10 @@ export default function Home() {
           </RowComponent>
         </CardComponent>
       </SectionComponent>
-      <FloatButtonComponent onPress={() => {}} title="Add new task" />
+      <FloatButtonComponent
+        onPress={() => navigation.navigate('AddNewTask')}
+        title="Add new task"
+      />
     </Container>
   );
 }

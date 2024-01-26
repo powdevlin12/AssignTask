@@ -28,7 +28,7 @@ export default FloatButtonComponent;
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: theme.size[4],
+    paddingVertical: theme.size[4] * 0.8,
     width: '100%',
     borderRadius: theme.border.large,
     backgroundColor: '#7fc7d9d4',
