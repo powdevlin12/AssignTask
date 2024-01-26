@@ -1,25 +1,20 @@
-import {
-  Edit2,
-  Element4,
-  Notification,
-  SearchNormal,
-} from 'iconsax-react-native';
+import {Element4, Notification, SearchNormal} from 'iconsax-react-native';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {globalStyle} from '../../styles/global.styles';
-import theme from '../../constants/theme';
+import {StyleSheet, View} from 'react-native';
+import {TextComponent, TitleComponent} from '../../components/Text';
+import {CardComponent} from '../../components/card';
 import {
   Container,
   RowComponent,
   SectionComponent,
   SpaceComponent,
 } from '../../components/layout';
-import {TextComponent, TitleComponent} from '../../components/Text';
-import {CardComponent, CardImageComponent} from '../../components/card';
+import {CicularComponent} from '../../components/progress';
 import {TagComponent} from '../../components/tag';
-import {AvatarGroupComponent} from './components/avatar-group';
-import {CicularComponent, ProgressComponent} from '../../components/progress';
+import theme from '../../constants/theme';
+import {globalStyle} from '../../styles/global.styles';
 import {ProgressTaskComponent} from './components/progress-task';
+import FloatButtonComponent from '../../components/button/FloatButtonComponent';
 
 export default function Home() {
   return (
@@ -115,18 +110,9 @@ export default function Home() {
           </RowComponent>
         </CardComponent>
       </SectionComponent>
+      <FloatButtonComponent onPress={() => {}} title="Add new task" />
     </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  iconCard: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255, 0.2)',
-    padding: theme.size[2],
-    borderRadius: theme.border.large,
-  },
-});
+const styles = StyleSheet.create({});

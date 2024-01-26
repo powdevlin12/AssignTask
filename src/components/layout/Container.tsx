@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
 import {globalStyle} from '../../styles/global.styles';
+import theme from '../../constants/theme';
 
 interface Props {
   title?: string;
@@ -11,7 +12,17 @@ interface Props {
 
 const Container = (props: Props) => {
   const {back, children, right, title} = props;
-  return <ScrollView style={globalStyle.container}>{children}</ScrollView>;
+  return (
+    <SafeAreaView style={globalStyle.container}>
+      <StatusBar barStyle={'light-content'} />
+      <ScrollView
+        contentContainerStyle={{
+          paddingTop: (StatusBar.currentHeight as number) + theme.size[4],
+        }}>
+        {children}
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 export default Container;

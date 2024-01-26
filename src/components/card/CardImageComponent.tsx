@@ -1,9 +1,8 @@
 import React, {ReactNode} from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import images from '../../assets/images';
-import {globalStyle} from '../../styles/global.styles';
 import theme from '../../constants/theme';
-import {TextComponent} from '../Text';
+import {globalStyle} from '../../styles/global.styles';
 
 interface Props {
   children: ReactNode;

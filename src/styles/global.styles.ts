@@ -6,8 +6,7 @@ export const globalStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.bg,
-    padding: size[4],
-    paddingTop: (StatusBar.currentHeight as number) + size[4],
+    paddingHorizontal: size[4],
   },
 
   text: {
