@@ -29,12 +29,15 @@ const InputComponent = ({
 
   return (
     <View>
-      {!lodash.isEmpty(title) && <TitleComponent text={title} flex={0} />}
-      <SpaceComponent height={theme.size[3]} />
+      {!lodash.isEmpty(title) && (
+        <TitleComponent text={title} flex={0} size={theme.fontSize.paragraph} />
+      )}
+      <SpaceComponent height={theme.size[2]} />
       <RowComponent
         styles={[globalStyle.inputContainer, {paddingVertical: theme.size[2]}]}
         justifyContent="space-between">
         {!lodash.isEmpty(prefix) && prefix}
+        <SpaceComponent width={theme.size[2]} />
         <TextInput
           style={[globalStyle.text, {flex: 1}]}
           placeholderTextColor={theme.colors.textOpacity}
