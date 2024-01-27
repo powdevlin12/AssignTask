@@ -7,4 +7,5 @@ export const colors = {
   blue: '#0B60B0',
   white: '#fafafa',
   button: '#3168e0',
+  danger: '#D24545',
 };
