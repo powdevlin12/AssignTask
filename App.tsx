@@ -1,9 +1,24 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
-import {AppStack} from './src/navigation';
+import {AppStack, AuthStack} from './src/navigation';
+import auth from '@react-native-firebase/auth';
 
 const App = () => {
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    });
+
+    return subscriber;
+  }, []);
+
   return (
     <NavigationContainer>
       <StatusBar
@@ -11,7 +26,7 @@ const App = () => {
         barStyle={'light-content'}
         backgroundColor={'transparent'}
       />
-      <AppStack />
+      {isLogin ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
