@@ -18,6 +18,8 @@ const Container = (props: Props) => {
       <ScrollView
         contentContainerStyle={{
           paddingTop: (StatusBar.currentHeight as number) + theme.size[4],
+          marginHorizontal: theme.size[4],
+          flex: 1,
         }}>
         {children}
       </ScrollView>
