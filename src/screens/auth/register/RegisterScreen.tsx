@@ -19,6 +19,9 @@ import images from '../../../assets/images';
 import {WIDTH} from '../../../constants/dimension';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '../../../navigation/auth.navigation';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import {FIRESTORAGE_COLLECTION} from '../../../constants/firebase';
 
 interface Password {
   password: string;
@@ -44,13 +47,45 @@ type Props = NativeStackScreenProps<AuthStackParamList, 'Register'>;
 
 const RegisterScreen = ({navigation}: Props) => {
   const [account, setAccount] = useState<UserModel & Password>(initValue);
-  console.log('🚀 ~ RegisterScreen ~ account:', account);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChangeValue = (
     key: keyof (UserModel & Password),
     value: string,
   ) => {
     setAccount(prev => ({...prev, [key]: value}));
+  };
+
+  const signUpHandler = async () => {
+    setIsLoading(true);
+    await auth()
+      .createUserWithEmailAndPassword(account.email as string, account.password)
+      .then(data => {
+        const {
+          user: {uid},
+        } = data;
+
+        firestore()
+          .collection(FIRESTORAGE_COLLECTION.USERS)
+          .doc(uid)
+          .set(account)
+          .then(() => {
+            console.log('User added!');
+          });
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+    setIsLoading(false);
+    navigation.navigate('Login');
   };
 
   return (
@@ -121,7 +156,11 @@ const RegisterScreen = ({navigation}: Props) => {
           />
         </SectionComponent>
         <SectionComponent>
-          <ButtonComponent title="Register" />
+          <ButtonComponent
+            title="Register"
+            onPress={signUpHandler}
+            isLoading={isLoading}
+          />
         </SectionComponent>
         <SectionComponent styles={{width: '100%'}}>
           <RowComponent
