@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Chart21, PasswordCheck, User} from 'iconsax-react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {DatetimePickerComponent} from '../../components/date-picker';
 import {InputComponent} from '../../components/input';
@@ -14,6 +14,10 @@ import theme from '../../constants/theme';
 import {TaskModel} from '../../models/TaskModel';
 import {AppStackParamList} from '../../navigation/app.navigation';
 import lodash from '../../utils/lodash';
+import {DropdownPickerComponent} from '../../components/dropdown-picker';
+import UserService from '../../services/users.service';
+import {SelectModel} from '../../models';
+import {UserModel} from '../../models/UserModel';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddNewTask'>;
 
@@ -28,10 +32,30 @@ const initValue: TaskModel = {
 
 const AddNewTaskScreen = ({navigation}: Props) => {
   const [taskDetail, setTaskDetail] = useState<TaskModel>(initValue);
+  const [userSelect, setUserSelect] = useState<SelectModel[]>([]);
 
   const changeValueHandler = (key: keyof TaskModel, value: string | Date) => {
     setTaskDetail(prev => ({...prev, [key]: value}));
   };
+
+  const handleDataUserSelect = async () => {
+    const members = await UserService.getInstance().getAllUsers();
+
+    const userSelectPrev: SelectModel[] = [];
+
+    members.forEach(member => {
+      userSelectPrev.push({
+        value: member.id as string,
+        label: member.data().name as string,
+      });
+    });
+
+    setUserSelect(userSelectPrev);
+  };
+
+  useEffect(() => {
+    handleDataUserSelect();
+  }, []);
 
   return (
     <Container>
@@ -104,6 +128,9 @@ const AddNewTaskScreen = ({navigation}: Props) => {
             />
           </View>
         </RowComponent>
+      </SectionComponent>
+      <SectionComponent>
+        <DropdownPickerComponent items={userSelect} title="Members" />
       </SectionComponent>
     </Container>
   );

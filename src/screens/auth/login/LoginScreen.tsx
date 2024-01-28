@@ -38,7 +38,7 @@ const LoginScreen = () => {
     setIsLoading(true);
 
     auth()
-      .signInWithEmailAndPassword(user.username, user.password)
+      .createUserWithEmailAndPassword(user.username, user.password)
       .then(() => {
         console.log('User account created & signed in!');
       })

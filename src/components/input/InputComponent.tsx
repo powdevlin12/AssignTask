@@ -8,7 +8,7 @@ import {TitleComponent} from '../Text';
 import {RowComponent, SpaceComponent} from '../layout';
 
 interface Props extends TextInputProps {
-  title: string;
+  title?: string;
   prefix?: ReactNode;
   affix?: ReactNode;
   allowClear?: boolean;

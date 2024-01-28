@@ -15,7 +15,7 @@ interface IButtonComponentProps extends TouchableOpacityProps {
   backgroundColor?: string;
   color?: string;
   isLoading?: boolean;
-  styles: StyleProp<ViewStyle>;
+  styles?: StyleProp<ViewStyle>;
 }
 
 const ButtonComponent = ({
