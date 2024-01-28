@@ -13,6 +13,7 @@ interface Props extends TextInputProps {
   affix?: ReactNode;
   allowClear?: boolean;
   value?: string;
+  isPassword?: boolean;
   changeValueHandle: (text: string) => void;
 }
 
@@ -22,6 +23,7 @@ const InputComponent = ({
   prefix,
   title,
   value,
+  isPassword,
   changeValueHandle,
   ...rest
 }: Props) => {
@@ -44,9 +46,10 @@ const InputComponent = ({
           ref={textInputRef}
           value={value}
           onChangeText={text => changeValueHandle(text)}
+          secureTextEntry={isPassword ?? false}
           {...rest}
         />
-        {!lodash.isEmpty(affix) && allowClear && lodash.isEmpty(value) && affix}
+        {!lodash.isEmpty(affix) && lodash.isEmpty(value) && affix}
         {allowClear && !lodash.isEmpty(value) && (
           <TouchableOpacity onPress={() => changeValueHandle('')}>
             <Refresh2 size="22" color={theme.colors.danger} />

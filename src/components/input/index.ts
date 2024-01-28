@@ -1,3 +1,3 @@
 import InputComponent from './InputComponent';
-
-export {InputComponent};
+import InputPasswordComponent from './InputPasswordComponent';
+export {InputPasswordComponent, InputComponent};
