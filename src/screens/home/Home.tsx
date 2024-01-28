@@ -1,7 +1,15 @@
-import {Element4, Notification, SearchNormal} from 'iconsax-react-native';
+import auth from '@react-native-firebase/auth';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {
+  Element4,
+  Logout,
+  Notification,
+  SearchNormal,
+} from 'iconsax-react-native';
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponent, TitleComponent} from '../../components/Text';
+import FloatButtonComponent from '../../components/button/FloatButtonComponent';
 import {CardComponent} from '../../components/card';
 import {
   Container,
@@ -12,17 +20,18 @@ import {
 import {CicularComponent} from '../../components/progress';
 import {TagComponent} from '../../components/tag';
 import theme from '../../constants/theme';
+import {AppStackParamList} from '../../navigation/app.navigation';
 import {globalStyle} from '../../styles/global.styles';
 import {ProgressTaskComponent} from './components/progress-task';
-import FloatButtonComponent from '../../components/button/FloatButtonComponent';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppStackParamList} from '../../navigation/app.navigation';
-import auth from '@react-native-firebase/auth';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
 export default function Home({navigation}: Props) {
   const user = auth().currentUser;
+
+  const signOutHandle = () => {
+    auth().signOut();
+  };
 
   return (
     <Container>
@@ -38,8 +47,17 @@ export default function Home({navigation}: Props) {
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
-          <TextComponent text={`Hi, ${user?.email}`} />
-          <TitleComponent text="Be Productive today" />
+          <RowComponent justifyContent="space-between">
+            <SectionComponent>
+              <TextComponent text={`Hi, ${user?.email}`} />
+              <TitleComponent text="Be Productive today" />
+            </SectionComponent>
+            <SectionComponent>
+              <TouchableOpacity onPress={signOutHandle}>
+                <Logout size="26" color={theme.colors.danger} />
+              </TouchableOpacity>
+            </SectionComponent>
+          </RowComponent>
         </SectionComponent>
         <SectionComponent>
           <RowComponent
