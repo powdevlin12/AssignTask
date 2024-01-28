@@ -6,7 +6,11 @@ import {
   InputComponent,
   InputPasswordComponent,
 } from '../../../components/input';
-import {Container, SectionComponent} from '../../../components/layout';
+import {
+  Container,
+  RowComponent,
+  SectionComponent,
+} from '../../../components/layout';
 import {WIDTH} from '../../../constants/dimension';
 import theme from '../../../constants/theme';
 import {UserModel} from '../../../models/UserModel';
@@ -14,13 +18,20 @@ import {User} from 'iconsax-react-native';
 import {ButtonComponent} from '../../../components/button';
 import lodash from '../../../utils/lodash';
 import auth from '@react-native-firebase/auth';
+import {AuthStackParamList} from '../../../navigation/auth.navigation';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const initUser: UserModel = {
-  username: '',
+  email: '',
   password: '',
+  data: function (): UserModel {
+    throw new Error('Function not implemented.');
+  },
 };
 
-const LoginScreen = () => {
+type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
+
+const LoginScreen = ({navigation}: Props) => {
   const [user, setUser] = useState<UserModel>(initUser);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -30,15 +41,15 @@ const LoginScreen = () => {
   };
 
   const signInHandler = () => {
-    if (lodash.isEmpty(user.username) || lodash.isEmpty(user.password)) {
-      setError('Not be empty username and password');
+    if (lodash.isEmpty(user.email) || lodash.isEmpty(user.password)) {
+      setError('Not be empty email and password');
       return;
     }
 
     setIsLoading(true);
 
     auth()
-      .signInWithEmailAndPassword(user.username, user.password)
+      .signInWithEmailAndPassword(user.email as string, user.password)
       .then(() => {
         console.log('User account created & signed in!');
       })
@@ -52,7 +63,7 @@ const LoginScreen = () => {
         }
 
         if (error.code === 'auth/invalid-credential') {
-          setError('Username or password is incorrect !');
+          setError('email or password is incorrect !');
         }
 
         console.error(error);
@@ -79,9 +90,9 @@ const LoginScreen = () => {
         </SectionComponent>
         <SectionComponent styles={{width: '100%', marginBottom: theme.size[3]}}>
           <InputComponent
-            title="Username"
-            value={user.username}
-            changeValueHandle={val => handleChangeValue('username', val)}
+            title="Email"
+            value={user.email}
+            changeValueHandle={val => handleChangeValue('email', val)}
             prefix={<User color={theme.colors.text} size={22} />}
           />
         </SectionComponent>
@@ -100,6 +111,18 @@ const LoginScreen = () => {
             <TextComponent text={error} color={theme.colors.danger} flex={0} />
           </SectionComponent>
         )}
+        <SectionComponent styles={{width: '100%'}}>
+          <RowComponent
+            justifyContent="flex-start"
+            onPress={() => navigation.navigate('Register')}>
+            <TextComponent text="Don't have an account? " flex={0} />
+            <TextComponent
+              text="Register"
+              font={theme.fontFamilies.MontserratSemiBold}
+              flex={0}
+            />
+          </RowComponent>
+        </SectionComponent>
         <SectionComponent>
           <ButtonComponent
             title="Sign In"

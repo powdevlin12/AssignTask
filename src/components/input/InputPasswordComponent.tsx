@@ -5,13 +5,15 @@ import theme from '../../constants/theme';
 import {Eye, EyeSlash, Lock1} from 'iconsax-react-native';
 
 interface IInputPasswordComponentProps {
-  title: string;
+  title?: string;
   changeValueHandle: (text: string) => void;
+  placeholder?: string;
 }
 
 const InputPasswordComponent = ({
   title,
   changeValueHandle,
+  placeholder,
 }: IInputPasswordComponentProps) => {
   const [isPassword, setIsPassword] = useState<boolean>(true);
 
@@ -36,6 +38,7 @@ const InputPasswordComponent = ({
         )
       }
       isPassword={isPassword}
+      placeholder={placeholder}
     />
   );
 };

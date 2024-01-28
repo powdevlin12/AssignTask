@@ -1,6 +1,5 @@
 export interface UserModel {
   id?: string;
-  username: string;
   password: string;
   email?: string;
   name?: string;
@@ -11,5 +10,5 @@ export interface UserModel {
     street: string;
     zipcode: string;
   };
-  data: () => UserModel;
+  data?: () => UserModel;
 }
