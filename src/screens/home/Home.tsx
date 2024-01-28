@@ -17,10 +17,13 @@ import {ProgressTaskComponent} from './components/progress-task';
 import FloatButtonComponent from '../../components/button/FloatButtonComponent';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AppStackParamList} from '../../navigation/app.navigation';
+import auth from '@react-native-firebase/auth';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
 export default function Home({navigation}: Props) {
+  const user = auth().currentUser;
+
   return (
     <Container>
       <ScrollView>
@@ -35,7 +38,7 @@ export default function Home({navigation}: Props) {
           </RowComponent>
         </SectionComponent>
         <SectionComponent>
-          <TextComponent text="Hi, Dat Tran" />
+          <TextComponent text={`Hi, ${user?.email}`} />
           <TitleComponent text="Be Productive today" />
         </SectionComponent>
         <SectionComponent>
