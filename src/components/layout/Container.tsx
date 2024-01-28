@@ -21,18 +21,17 @@ const Container = (props: Props) => {
   return (
     <SafeAreaView style={globalStyle.container}>
       <StatusBar barStyle={'light-content'} />
-      <View
-        style={{
-          paddingTop: (StatusBar.currentHeight as number) + theme.size[4],
-          marginHorizontal: theme.size[4],
-          flex: 1,
-        }}>
-        {children}
-      </View>
+      <View style={styles.containerChilden}>{children}</View>
     </SafeAreaView>
   );
 };
 
 export default Container;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  containerChilden: {
+    paddingTop: (StatusBar.currentHeight as number) + theme.size[4],
+    marginHorizontal: theme.size[4],
+    flex: 1,
+  },
+});

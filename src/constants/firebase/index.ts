@@ -1,0 +1,5 @@
+const FIRESTORAGE_COLLECTION = {
+  USERS: 'users',
+};
+
+export {FIRESTORAGE_COLLECTION};

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.size[4] * 0.8,
     width: '100%',
     borderRadius: theme.border.large,
-    backgroundColor: '#7fc7d9d4',
+    backgroundColor: theme.colors.button,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
