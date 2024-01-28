@@ -42,6 +42,7 @@ const ButtonComponent = ({
           text={title}
           flex={0}
           color={color}
+          styles={{textAlign: 'center'}}
         />
       )}
     </TouchableOpacity>
@@ -53,7 +54,9 @@ export default ButtonComponent;
 const stylesLocal = StyleSheet.create({
   container: {
     borderRadius: theme.border.medium,
-    paddingVertical: theme.size[3],
+    paddingVertical: theme.size[4],
     paddingHorizontal: theme.size[4],
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

@@ -3,6 +3,7 @@ import {Chart21, PasswordCheck, User} from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {DatetimePickerComponent} from '../../components/date-picker';
+import {DropdownPickerComponent} from '../../components/dropdown-picker';
 import {InputComponent} from '../../components/input';
 import {
   Container,
@@ -11,13 +12,11 @@ import {
   SpaceComponent,
 } from '../../components/layout';
 import theme from '../../constants/theme';
+import {SelectModel} from '../../models';
 import {TaskModel} from '../../models/TaskModel';
 import {AppStackParamList} from '../../navigation/app.navigation';
-import lodash from '../../utils/lodash';
-import {DropdownPickerComponent} from '../../components/dropdown-picker';
 import UserService from '../../services/users.service';
-import {SelectModel} from '../../models';
-import {UserModel} from '../../models/UserModel';
+import lodash from '../../utils/lodash';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddNewTask'>;
 
@@ -34,7 +33,10 @@ const AddNewTaskScreen = ({navigation}: Props) => {
   const [taskDetail, setTaskDetail] = useState<TaskModel>(initValue);
   const [userSelect, setUserSelect] = useState<SelectModel[]>([]);
 
-  const changeValueHandler = (key: keyof TaskModel, value: string | Date) => {
+  const changeValueHandler = (
+    key: keyof TaskModel,
+    value: string | Date | string[],
+  ) => {
     setTaskDetail(prev => ({...prev, [key]: value}));
   };
 
@@ -130,7 +132,13 @@ const AddNewTaskScreen = ({navigation}: Props) => {
         </RowComponent>
       </SectionComponent>
       <SectionComponent>
-        <DropdownPickerComponent items={userSelect} title="Members" />
+        <DropdownPickerComponent
+          items={userSelect}
+          title="Members"
+          multiple={true}
+          selected={taskDetail.uids}
+          onSelect={(val: string[]) => changeValueHandler('uids', val)}
+        />
       </SectionComponent>
     </Container>
   );
