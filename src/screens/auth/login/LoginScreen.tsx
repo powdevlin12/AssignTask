@@ -38,7 +38,7 @@ const LoginScreen = () => {
     setIsLoading(true);
 
     auth()
-      .createUserWithEmailAndPassword(user.username, user.password)
+      .signInWithEmailAndPassword(user.username, user.password)
       .then(() => {
         console.log('User account created & signed in!');
       })
@@ -49,6 +49,10 @@ const LoginScreen = () => {
 
         if (error.code === 'auth/invalid-email') {
           setError('That email address is invalid!');
+        }
+
+        if (error.code === 'auth/invalid-credential') {
+          setError('Username or password is incorrect !');
         }
 
         console.error(error);
