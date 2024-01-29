@@ -65,10 +65,11 @@ const RegisterScreen = ({navigation}: Props) => {
           user: {uid},
         } = data;
 
+        const {confirmPassword, password, id, ...dataSenderServer} = account;
         firestore()
           .collection(FIRESTORAGE_COLLECTION.USERS)
           .doc(uid)
-          .set(account)
+          .set(dataSenderServer)
           .then(() => {
             console.log('User added!');
           });
@@ -85,7 +86,6 @@ const RegisterScreen = ({navigation}: Props) => {
         console.error(error);
       });
     setIsLoading(false);
-    navigation.navigate('Login');
   };
 
   return (

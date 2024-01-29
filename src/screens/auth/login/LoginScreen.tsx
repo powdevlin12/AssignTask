@@ -14,7 +14,7 @@ import {
 import {WIDTH} from '../../../constants/dimension';
 import theme from '../../../constants/theme';
 import {UserModel} from '../../../models/UserModel';
-import {User} from 'iconsax-react-native';
+import {Facebook, Google, User} from 'iconsax-react-native';
 import {ButtonComponent} from '../../../components/button';
 import lodash from '../../../utils/lodash';
 import auth from '@react-native-firebase/auth';
@@ -81,24 +81,29 @@ const LoginScreen = ({navigation}: Props) => {
           resizeMode="center"
           style={styles.img}
         />
-        <SectionComponent>
+        <SectionComponent styles={{alignItems: 'center'}}>
           <TitleComponent
             text="Login"
             size={theme.fontSize.titleLarge}
             flex={0}
           />
+          <TextComponent
+            text="Please enter your account"
+            flex={0}
+            color={theme.colors.gray2}
+          />
         </SectionComponent>
         <SectionComponent styles={{width: '100%', marginBottom: theme.size[3]}}>
           <InputComponent
-            title="Email"
             value={user.email}
             changeValueHandle={val => handleChangeValue('email', val)}
             prefix={<User color={theme.colors.text} size={22} />}
+            placeholder="Email"
           />
         </SectionComponent>
         <SectionComponent styles={{width: '100%'}}>
           <InputPasswordComponent
-            title="Password"
+            placeholder="Password"
             changeValueHandle={val => handleChangeValue('password', val)}
           />
         </SectionComponent>
@@ -123,15 +128,40 @@ const LoginScreen = ({navigation}: Props) => {
             />
           </RowComponent>
         </SectionComponent>
-        <SectionComponent>
+        <SectionComponent styles={{marginBottom: theme.size[3]}}>
           <ButtonComponent
             title="Sign In"
             onPress={signInHandler}
             styles={{
-              paddingVertical: theme.size[4],
-              paddingHorizontal: theme.size[6],
+              paddingVertical: theme.size[4] * 0.75,
               borderRadius: theme.border.large,
             }}
+            isLoading={isLoading}
+          />
+        </SectionComponent>
+        <SectionComponent styles={{marginBottom: theme.size[3]}}>
+          <ButtonComponent
+            icon={<Google size="28" color="#FF8A65" />}
+            onPress={signInHandler}
+            styles={{
+              paddingVertical: theme.size[4] * 0.75,
+              borderRadius: theme.border.large,
+            }}
+            title=""
+            isLoading={isLoading}
+            backgroundColor={theme.colors.white}
+          />
+        </SectionComponent>
+        <SectionComponent>
+          <ButtonComponent
+            title=""
+            icon={<Facebook size="28" color={theme.colors.blue} />}
+            onPress={signInHandler}
+            styles={{
+              paddingVertical: theme.size[4] * 0.75,
+              borderRadius: theme.border.large,
+            }}
+            backgroundColor={theme.colors.white}
             isLoading={isLoading}
           />
         </SectionComponent>

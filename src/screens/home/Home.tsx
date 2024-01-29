@@ -6,7 +6,7 @@ import {
   Notification,
   SearchNormal,
 } from 'iconsax-react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponent, TitleComponent} from '../../components/Text';
 import FloatButtonComponent from '../../components/button/FloatButtonComponent';
@@ -23,6 +23,7 @@ import theme from '../../constants/theme';
 import {AppStackParamList} from '../../navigation/app.navigation';
 import {globalStyle} from '../../styles/global.styles';
 import {ProgressTaskComponent} from './components/progress-task';
+import Toast from 'react-native-simple-toast';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
@@ -32,6 +33,10 @@ export default function Home({navigation}: Props) {
   const signOutHandle = () => {
     auth().signOut();
   };
+
+  useEffect(() => {
+    Toast.showWithGravity('Welcome to our place', Toast.SHORT, Toast.CENTER);
+  }, []);
 
   return (
     <Container>

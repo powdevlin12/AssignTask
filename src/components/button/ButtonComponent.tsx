@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {
   ActivityIndicator,
   StyleProp,
@@ -9,12 +9,14 @@ import {
 } from 'react-native';
 import theme from '../../constants/theme';
 import {TitleComponent} from '../Text';
+import {WIDTH} from '../../constants/dimension';
 
 interface IButtonComponentProps extends TouchableOpacityProps {
   title: string;
   backgroundColor?: string;
   color?: string;
   isLoading?: boolean;
+  icon?: ReactNode;
   styles?: StyleProp<ViewStyle>;
 }
 
@@ -24,6 +26,7 @@ const ButtonComponent = ({
   color,
   isLoading,
   styles,
+  icon,
   ...rest
 }: IButtonComponentProps) => {
   return (
@@ -36,6 +39,8 @@ const ButtonComponent = ({
       {...rest}>
       {isLoading ? (
         <ActivityIndicator size="large" color={theme.colors.text} />
+      ) : icon ? (
+        icon
       ) : (
         <TitleComponent
           size={theme.fontSize.paragraphLarge}
@@ -58,5 +63,6 @@ const stylesLocal = StyleSheet.create({
     paddingHorizontal: theme.size[4],
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: WIDTH * 0.6,
   },
 });
