@@ -18,6 +18,7 @@ const AttachmentFile = ({pickDocumentsHandle}: IAttachmentFileProps) => {
       const response = await DocumentPicker.pick({
         allowMultiSelection: true,
         type: DocumentPicker.types.allFiles,
+        copyTo: 'cachesDirectory',
       });
       pickDocumentsHandle(response)();
     } catch (error) {

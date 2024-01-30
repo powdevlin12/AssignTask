@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Chart21, PasswordCheck, Trash, User} from 'iconsax-react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {DocumentPickerResponse} from 'react-native-document-picker';
 import {TextComponent, TitleComponent} from '../../components/Text';
@@ -21,6 +21,10 @@ import {TaskModel} from '../../models/TaskModel';
 import {AppStackParamList} from '../../navigation/app.navigation';
 import UserService from '../../services/users.service';
 import lodash from '../../utils/lodash';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+import {FIRESTORAGE_COLLECTION} from '../../constants/firebase';
+import Toast from 'react-native-simple-toast';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddNewTask'>;
 
@@ -31,11 +35,17 @@ const initValue: TaskModel = {
   start: new Date(),
   end: new Date(),
   uids: [],
+  fileUrls: [],
 };
 
 const AddNewTaskScreen = ({navigation}: Props) => {
   const [taskDetail, setTaskDetail] = useState<TaskModel>(initValue);
   const [userSelect, setUserSelect] = useState<SelectModel[]>([]);
+  const [attachments, setAttachments] = useState<Array<DocumentPickerResponse>>(
+    [],
+  );
+  const attachmentUrls = useRef<Array<string>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const changeValueHandler = (
     key: keyof TaskModel,
@@ -59,10 +69,6 @@ const AddNewTaskScreen = ({navigation}: Props) => {
     setUserSelect(userSelectPrev);
   };
 
-  const [attachments, setAttachments] = useState<Array<DocumentPickerResponse>>(
-    [],
-  );
-
   const pickAttachmentsHandle =
     (attachmentsTask: Array<DocumentPickerResponse>) => () => {
       console.log('🚀 ~ AddNewTaskScreen ~ attachmentsTask:', attachmentsTask);
@@ -73,6 +79,60 @@ const AddNewTaskScreen = ({navigation}: Props) => {
     const attachmentsCopy = [...attachments];
     attachmentsCopy.splice(index, 1);
     setAttachments(attachmentsCopy);
+  };
+
+  // upload single file in storage firebase
+  const uploadFileHandle = async (file: DocumentPickerResponse) => {
+    try {
+      const filename = file?.name ?? `file-${Date.now()}`;
+      const path = `tasks/${filename}`;
+
+      await storage()
+        .ref(path)
+        .putFile((file.fileCopyUri as string).replace('file://', ''));
+
+      await storage()
+        .ref(path)
+        .getDownloadURL()
+        .then(url => {
+          const dataCopy = [...attachmentUrls.current];
+          attachmentUrls.current = [...dataCopy, url];
+        });
+    } catch (error) {
+      console.log('🚀 ~ uploadFileHandle ~ error:', error);
+    }
+  };
+
+  // save task
+  const saveTaskHandle = async () => {
+    try {
+      setIsLoading(true);
+      for (const file of attachments) {
+        await uploadFileHandle(file);
+      }
+
+      const data: TaskModel = {
+        ...taskDetail,
+        fileUrls: attachmentUrls.current,
+      };
+
+      await firestore()
+        .collection(FIRESTORAGE_COLLECTION.TASKS)
+        .add(data)
+        .then(() => {
+          console.log('add task success !');
+        });
+      Toast.showWithGravity(
+        'Add task successfully !',
+        Toast.SHORT,
+        Toast.CENTER,
+      );
+      navigation.goBack();
+    } catch (error) {
+      console.log('🚀 ~ saveTaskHandle ~ error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -190,7 +250,11 @@ const AddNewTaskScreen = ({navigation}: Props) => {
           </SectionComponent>
         )}
         <SectionComponent>
-          <ButtonComponent title="Save" />
+          <ButtonComponent
+            title="Save"
+            onPress={saveTaskHandle}
+            isLoading={isLoading}
+          />
         </SectionComponent>
       </ScrollView>
     </Container>
