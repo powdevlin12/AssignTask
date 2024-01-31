@@ -6,7 +6,7 @@ import {
   Notification,
   SearchNormal,
 } from 'iconsax-react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {TextComponent, TitleComponent} from '../../components/Text';
 import FloatButtonComponent from '../../components/button/FloatButtonComponent';
@@ -24,17 +24,35 @@ import {AppStackParamList} from '../../navigation/app.navigation';
 import {globalStyle} from '../../styles/global.styles';
 import {ProgressTaskComponent} from './components/progress-task';
 import Toast from 'react-native-simple-toast';
+import {TaskModel} from '../../models/TaskModel';
+import TasksService from '../../services/tasks.service';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
 export default function Home({navigation}: Props) {
   const user = auth().currentUser;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [listTasks, setListTasks] = useState<Array<TaskModel>>([]);
 
   const signOutHandle = () => {
     auth().signOut();
   };
 
+  const getTasksHandle = async () => {
+    try {
+      setIsLoading(true);
+      const response = await TasksService.getInstance().getAllTasks();
+      console.log('🚀 ~ getTasksHandle ~ response:', response);
+      setListTasks(response);
+    } catch (error) {
+      console.log('🚀 ~ getTasksHandle ~ error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
+    getTasksHandle();
     Toast.showWithGravity('Welcome to our place', Toast.SHORT, Toast.CENTER);
   }, []);
 

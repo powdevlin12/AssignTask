@@ -36,6 +36,7 @@ const initValue: TaskModel = {
   end: new Date(),
   uids: [],
   fileUrls: [],
+  id: '',
 };
 
 const AddNewTaskScreen = ({navigation}: Props) => {
