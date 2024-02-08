@@ -1,27 +1,34 @@
 import React, {ReactNode} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
-import {globalStyle} from '../../styles/global.styles';
+import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
 import theme from '../../constants/theme';
+import {globalStyle} from '../../styles/global.styles';
 
 interface Props {
   title?: string;
   back?: boolean;
   right?: ReactNode;
   children?: ReactNode;
+  haveHeader?: boolean;
 }
 
 const Container = (props: Props) => {
-  const {back, children, right, title} = props;
+  const {back, children, right, title, haveHeader = false} = props;
+  console.log('🚀 ~ Container ~ haveHeader:', haveHeader);
   return (
     <SafeAreaView style={globalStyle.container}>
       <StatusBar barStyle={'light-content'} />
-      <View style={styles.containerChilden}>{children}</View>
+      <View
+        style={[
+          styles.containerChilden,
+          // eslint-disable-next-line react-native/no-inline-styles
+          {
+            paddingTop: haveHeader
+              ? 0
+              : (StatusBar.currentHeight as number) + theme.size[4],
+          },
+        ]}>
+        {children}
+      </View>
     </SafeAreaView>
   );
 };
@@ -30,7 +37,6 @@ export default Container;
 
 const styles = StyleSheet.create({
   containerChilden: {
-    paddingTop: (StatusBar.currentHeight as number) + theme.size[4],
     marginHorizontal: theme.size[4],
     flex: 1,
   },

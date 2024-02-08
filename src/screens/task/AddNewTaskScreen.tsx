@@ -141,7 +141,7 @@ const AddNewTaskScreen = ({navigation}: Props) => {
   }, []);
 
   return (
-    <Container>
+    <Container haveHeader>
       <ScrollView>
         <SectionComponent
           styles={{
