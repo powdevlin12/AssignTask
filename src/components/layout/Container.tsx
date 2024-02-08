@@ -13,7 +13,6 @@ interface Props {
 
 const Container = (props: Props) => {
   const {back, children, right, title, haveHeader = false} = props;
-  console.log('🚀 ~ Container ~ haveHeader:', haveHeader);
   return (
     <SafeAreaView style={globalStyle.container}>
       <StatusBar barStyle={'light-content'} />

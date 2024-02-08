@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import auth from '@react-native-firebase/auth';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
@@ -26,11 +27,16 @@ import {ProgressTaskComponent} from './components/progress-task';
 import Toast from 'react-native-simple-toast';
 import {TaskModel} from '../../models/TaskModel';
 import TasksService from '../../services/tasks.service';
+import {
+  DocumentSnapshot,
+  QueryDocumentSnapshot,
+} from '@firebase/firestore-types';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
 export default function Home({navigation}: Props) {
   const user = auth().currentUser;
+  console.log('🚀 ~ Home ~ user:', user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [listTasks, setListTasks] = useState<Array<TaskModel>>([]);
 
@@ -38,11 +44,14 @@ export default function Home({navigation}: Props) {
     auth().signOut();
   };
 
-  const getTasksHandle = async () => {
+  const getMyTasksHandle = async () => {
     try {
       setIsLoading(true);
-      const response = await TasksService.getInstance().getAllTasks();
-      console.log('🚀 ~ getTasksHandle ~ response:', response);
+      const response = await TasksService.getInstance().getMyTask(
+        user?.uid as string,
+      );
+
+      console.log(response);
       setListTasks(response);
     } catch (error) {
       console.log('🚀 ~ getTasksHandle ~ error:', error);
@@ -52,7 +61,7 @@ export default function Home({navigation}: Props) {
   };
 
   useEffect(() => {
-    getTasksHandle();
+    getMyTasksHandle();
     Toast.showWithGravity('Welcome to our place', Toast.SHORT, Toast.CENTER);
   }, []);
 

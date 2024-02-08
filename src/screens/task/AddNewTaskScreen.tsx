@@ -25,6 +25,8 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import {FIRESTORAGE_COLLECTION} from '../../constants/firebase';
 import Toast from 'react-native-simple-toast';
+import auth from '@react-native-firebase/auth';
+import TasksService from '../../services/tasks.service';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddNewTask'>;
 
@@ -115,14 +117,10 @@ const AddNewTaskScreen = ({navigation}: Props) => {
       const data: TaskModel = {
         ...taskDetail,
         fileUrls: attachmentUrls.current,
+        userCreated: auth().currentUser?.uid,
       };
 
-      await firestore()
-        .collection(FIRESTORAGE_COLLECTION.TASKS)
-        .add(data)
-        .then(() => {
-          console.log('add task success !');
-        });
+      await TasksService.getInstance().addTask(data);
       Toast.showWithGravity(
         'Add task successfully !',
         Toast.SHORT,
