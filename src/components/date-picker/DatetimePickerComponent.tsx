@@ -51,7 +51,11 @@ const DatetimePickerComponent = ({
           text={
             selected
               ? type === 'time'
-                ? `${selected.getHours()}:${selected.getMinutes()}`
+                ? `${selected.getHours()}:${
+                    selected.getMinutes() < 10
+                      ? '0' + selected.getMinutes()
+                      : selected.getMinutes()
+                  }`
                 : `${
                     selected.getDate() > 10
                       ? selected.getDate()
