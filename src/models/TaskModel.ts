@@ -9,4 +9,6 @@ export interface TaskModel {
   color?: string;
   fileUrls?: string[];
   userCreated?: string;
+  percent?: number;
+  createdAt?: Date;
 }

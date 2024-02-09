@@ -9,6 +9,7 @@ import {
 } from 'iconsax-react-native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import Toast from 'react-native-simple-toast';
 import {TextComponent, TitleComponent} from '../../components/Text';
 import FloatButtonComponent from '../../components/button/FloatButtonComponent';
 import {CardComponent} from '../../components/card';
@@ -21,16 +22,12 @@ import {
 import {CicularComponent} from '../../components/progress';
 import {TagComponent} from '../../components/tag';
 import theme from '../../constants/theme';
+import {TaskModel} from '../../models/TaskModel';
 import {AppStackParamList} from '../../navigation/app.navigation';
+import TasksService from '../../services/tasks.service';
 import {globalStyle} from '../../styles/global.styles';
 import {ProgressTaskComponent} from './components/progress-task';
-import Toast from 'react-native-simple-toast';
-import {TaskModel} from '../../models/TaskModel';
-import TasksService from '../../services/tasks.service';
-import {
-  DocumentSnapshot,
-  QueryDocumentSnapshot,
-} from '@firebase/firestore-types';
+import {format} from 'date-fns';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Home'>;
 
@@ -50,8 +47,8 @@ export default function Home({navigation}: Props) {
       const response = await TasksService.getInstance().getMyTask(
         user?.uid as string,
       );
+      console.log('🚀 ~ getMyTasksHandle ~ response:', response);
 
-      console.log(response);
       setListTasks(response);
     } catch (error) {
       console.log('🚀 ~ getTasksHandle ~ error:', error);
@@ -125,36 +122,65 @@ export default function Home({navigation}: Props) {
         </SectionComponent>
         <SectionComponent>
           <RowComponent>
+            {listTasks?.[0] && (
+              <>
+                <View style={{flex: 1}}>
+                  <ProgressTaskComponent
+                    title={listTasks[0].title}
+                    content={listTasks[0].description}
+                    dueDate={`Due ${format(
+                      listTasks[0].dueDate.toDate(),
+                      'dd/MM/yyyy',
+                    )}`}
+                    progress={{
+                      percent: `${listTasks[0].percent as number}%`,
+                      titleProgress: 'Doing',
+                      colorProgress: '#0aacff',
+                    }}
+                    group={['dat']}
+                  />
+                </View>
+                <SpaceComponent width={theme.size[4]} />
+              </>
+            )}
             <View style={{flex: 1}}>
-              <ProgressTaskComponent
-                title="UX Design"
-                content="Task mamagement mobile app"
-                dueDate="Due, 12 Jun 2024"
-                progress={{
-                  percent: '70%',
-                  titleProgress: 'Doing',
-                  colorProgress: '#0aacff',
-                }}
-                group={['dat']}
-              />
-            </View>
-            <SpaceComponent width={theme.size[4]} />
-            <View style={{flex: 1}}>
-              <ProgressTaskComponent
-                title="API payment"
-                color="rgba(33,150,243,0.9)"
-                progress={{
-                  percent: '36%',
-                  titleProgress: 'Done',
-                  colorProgress: 'rgba(18,181, 22,0.9)',
-                }}
-              />
-              <SpaceComponent height={16} />
-              <ProgressTaskComponent
-                title="Update work"
-                content="Revision home page"
-                color="rgba(18,181, 22,0.9)"
-              />
+              {listTasks?.[1] && (
+                <>
+                  <ProgressTaskComponent
+                    color="rgba(33,150,243,0.9)"
+                    title={listTasks[1].title}
+                    content={listTasks[1].description}
+                    dueDate={`Due ${format(
+                      listTasks[1].dueDate.toDate(),
+                      'dd/MM/yyyy',
+                    )}`}
+                    progress={{
+                      percent: `${listTasks[1].percent as number}%`,
+                      titleProgress: 'Doing',
+                      colorProgress: 'rgba(18,181, 22,0.9)',
+                    }}
+                    group={['dat']}
+                  />
+                  <SpaceComponent height={16} />
+                </>
+              )}
+              {listTasks?.[2] && (
+                <ProgressTaskComponent
+                  color="rgba(18,181, 22,0.9)"
+                  title={listTasks[2].title}
+                  content={listTasks[2].description}
+                  dueDate={`Due ${format(
+                    listTasks[2].dueDate.toDate(),
+                    'dd/MM/yyyy',
+                  )}`}
+                  progress={{
+                    percent: `${listTasks[2].percent as number}%`,
+                    titleProgress: 'Doing',
+                    colorProgress: 'rgba(18,181, 22,0.4)',
+                  }}
+                  group={['dat']}
+                />
+              )}
             </View>
           </RowComponent>
         </SectionComponent>

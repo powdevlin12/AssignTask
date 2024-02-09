@@ -35,7 +35,7 @@ const ProgressTaskComponent = ({
       <TouchableOpacity style={styles.iconCard} onPress={() => {}}>
         <Edit2 size="20" color={theme.colors.white} />
       </TouchableOpacity>
-      <TitleComponent text={title} />
+      <TitleComponent text={title} numberOfLines={1} />
       {content && <TextComponent text={content} />}
       {!group ? null : <AvatarGroupComponent />}
       {progress && (

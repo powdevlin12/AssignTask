@@ -1,8 +1,11 @@
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Chart21, PasswordCheck, Trash, User} from 'iconsax-react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {DocumentPickerResponse} from 'react-native-document-picker';
+import Toast from 'react-native-simple-toast';
 import {TextComponent, TitleComponent} from '../../components/Text';
 import {AttachmentFile} from '../../components/attachment';
 import {ButtonComponent} from '../../components/button';
@@ -19,14 +22,9 @@ import theme from '../../constants/theme';
 import {SelectModel} from '../../models';
 import {TaskModel} from '../../models/TaskModel';
 import {AppStackParamList} from '../../navigation/app.navigation';
+import TasksService from '../../services/tasks.service';
 import UserService from '../../services/users.service';
 import lodash from '../../utils/lodash';
-import storage from '@react-native-firebase/storage';
-import firestore from '@react-native-firebase/firestore';
-import {FIRESTORAGE_COLLECTION} from '../../constants/firebase';
-import Toast from 'react-native-simple-toast';
-import auth from '@react-native-firebase/auth';
-import TasksService from '../../services/tasks.service';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddNewTask'>;
 
@@ -118,6 +116,8 @@ const AddNewTaskScreen = ({navigation}: Props) => {
         ...taskDetail,
         fileUrls: attachmentUrls.current,
         userCreated: auth().currentUser?.uid,
+        percent: 0,
+        createdAt: new Date(),
       };
 
       await TasksService.getInstance().addTask(data);

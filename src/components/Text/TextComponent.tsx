@@ -9,10 +9,18 @@ interface Props {
   font?: string;
   color?: string;
   flex?: number;
+  numberOfLines?: number;
   styles?: StyleProp<TextStyle>;
 }
 
-const TextComponent = ({text, font, size, color, flex}: Props) => {
+const TextComponent = ({
+  text,
+  font,
+  size,
+  color,
+  flex,
+  numberOfLines,
+}: Props) => {
   return (
     <View>
       <Text
@@ -25,7 +33,8 @@ const TextComponent = ({text, font, size, color, flex}: Props) => {
             flex: flex ?? 1,
           },
           styles,
-        ]}>
+        ]}
+        numberOfLines={numberOfLines ?? 0}>
         {text}
       </Text>
     </View>

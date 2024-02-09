@@ -9,10 +9,19 @@ interface Props {
   flex?: number;
   font?: string;
   color?: string;
+  numberOfLines?: number;
   styles?: StyleProp<TextStyle>;
 }
 
-const TitleComponent = ({text, color, font, size, styles, flex}: Props) => {
+const TitleComponent = ({
+  text,
+  color,
+  font,
+  size,
+  styles,
+  flex,
+  numberOfLines,
+}: Props) => {
   return (
     <TextComponent
       size={size ?? theme.fontSize.tilte}
@@ -21,6 +30,7 @@ const TitleComponent = ({text, color, font, size, styles, flex}: Props) => {
       text={text}
       flex={flex}
       styles={styles}
+      numberOfLines={numberOfLines ?? 0}
     />
   );
 };
