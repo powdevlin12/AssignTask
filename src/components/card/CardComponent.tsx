@@ -1,7 +1,7 @@
-import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import React, {ReactNode} from 'react';
-import {globalStyle} from '../styles/global.styles';
-import {colors} from '../constants/colors';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import theme from '../../constants/theme/';
+import {globalStyle} from '../../styles/global.styles';
 
 interface Props {
   children: ReactNode;
@@ -14,7 +14,7 @@ const CardComponent = ({children, styles, bgColor}: Props) => {
     <View
       style={[
         globalStyle.inputContainer,
-        {padding: 12, backgroundColor: bgColor ?? colors.gray},
+        {padding: 12, backgroundColor: bgColor ?? theme.colors.gray},
         styles,
       ]}>
       <View style={styles.contentContainer}>{children}</View>

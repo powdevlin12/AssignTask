@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import React, {ReactNode} from 'react';
-import {globalStyle} from '../styles/global.styles';
+import {globalStyle} from '../../styles/global.styles';
 
 interface Props {
   children: ReactNode;
