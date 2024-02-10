@@ -57,7 +57,7 @@ const DatetimePickerComponent = ({
                       : selected.getMinutes()
                   }`
                 : `${
-                    selected.getDate() > 10
+                    selected.getDate() > 9
                       ? selected.getDate()
                       : '0' + selected.getDate()
                   }/${selected.getMonth() + 1}/ ${selected.getFullYear()}`

@@ -25,6 +25,8 @@ import {AppStackParamList} from '../../navigation/app.navigation';
 import TasksService from '../../services/tasks.service';
 import UserService from '../../services/users.service';
 import lodash from '../../utils/lodash';
+import {FIRESTORAGE_COLLECTION} from '../../constants/firebase';
+import firestore from '@react-native-firebase/firestore';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'AddNewTask'>;
 
@@ -115,7 +117,12 @@ const AddNewTaskScreen = ({navigation}: Props) => {
       const data: TaskModel = {
         ...taskDetail,
         fileUrls: attachmentUrls.current,
-        userCreated: auth().currentUser?.uid,
+        userCreated: firestore().doc(
+          `${FIRESTORAGE_COLLECTION.USERS}/${auth().currentUser?.uid}`,
+        ),
+        uids: taskDetail.uids.map(uid =>
+          firestore().doc(`${FIRESTORAGE_COLLECTION.USERS}/${uid}`),
+        ),
         percent: 0,
         createdAt: new Date(),
       };

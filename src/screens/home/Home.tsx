@@ -47,8 +47,10 @@ export default function Home({navigation}: Props) {
       const response = await TasksService.getInstance().getMyTask(
         user?.uid as string,
       );
-      console.log('🚀 ~ getMyTasksHandle ~ response:', response);
+      const test = await response[0].userCreated?.get();
 
+      const data = test?.data();
+      console.log('🚀 ~ getMyTasksHandle ~ data:', data);
       setListTasks(response);
     } catch (error) {
       console.log('🚀 ~ getTasksHandle ~ error:', error);
@@ -64,7 +66,7 @@ export default function Home({navigation}: Props) {
 
   return (
     <Container>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SectionComponent>
           <RowComponent justifyContent="space-between">
             <Element4 size="28" color={theme.colors.desc} variant="Outline" />

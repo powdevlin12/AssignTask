@@ -1,3 +1,5 @@
+import {DocumentData, DocumentReference} from '@firebase/firestore-types';
+
 export interface TaskModel {
   id: string;
   title: string;
@@ -5,10 +7,10 @@ export interface TaskModel {
   dueDate: Date;
   start: Date;
   end: Date;
-  uids: string[];
+  uids: DocumentReference<DocumentData>[];
   color?: string;
   fileUrls?: string[];
-  userCreated?: string;
+  userCreated?: DocumentReference<DocumentData>;
   percent?: number;
   createdAt?: Date;
 }
